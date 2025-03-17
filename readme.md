@@ -10,6 +10,14 @@
 - `docker-compose.yml` - Конфигурация докера
 - `readme.md` - Документация проекта
 
+## Доступы по умолчанию
+- **Laravel**
+  - URL: http://localhost:8000
+- **phpMyAdmin** 
+  - Dashboard: http://localhost:8181
+  - Login: laravel 
+  - Password: laravel
+
 ## Установка
 
 1. Поднимаем докер
