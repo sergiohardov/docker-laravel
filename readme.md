@@ -26,10 +26,9 @@
 docker-compose up -d
 ```
 
-2. Запускаем composer
-
+2. Открываем консоль php-fpm контейнера
 ```bash
-docker-compose run --rm composer bash
+docker compose exec php-fpm sh
 ```
 
 3. Устанавливаем Laravel  
@@ -39,10 +38,16 @@ docker-compose run --rm composer bash
 composer create-project laravel/laravel .
 ```
 
-4. Закрываем Composer
+4. Устанавливаем npm пакеты
 
 ```bash
-exit
+npm i
+```
+
+5. Запускаем билд
+
+```bash
+npm run build
 ```
 
 5. В файле `laravel/.env` прописать данные для базы данных согласно параметрам которые присвоены докеру, например:
@@ -59,28 +64,5 @@ DB_PASSWORD=laravel
 6. Выполнить миграцию базы данных
 
 ```bash
-docker-compose run --rm artisan migrate
+php artisan migrate
 ```
-
-## Сервисы
-
-### Composer
-
-```bash
-docker-compose run --rm composer bash
-```
-
-### Node.js
-
-```bash
-docker-compose run --rm node bash
-```
-
-### Artisan
-
-```bash
-docker-compose run --rm artisan <command>
-```
-
-_--rm означает, что контейнер будет удалён после выхода._
-
