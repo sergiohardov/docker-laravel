@@ -22,17 +22,18 @@ services:
       - "./docker/php-fpm/custom.php.ini:/usr/local/etc/php/conf.d/custom.ini"
       - "./laravel:/var/www/html"
 
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    restart: always
-    depends_on:
-      - mysql
-    ports:
-      - "${PMA_PORT}:80"
-    environment:
-      PMA_HOST: mysql # link to service name
-      MYSQL_USERNAME: ${MYSQL_USER}
-      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+# If you need
+#  phpmyadmin:
+#    image: phpmyadmin/phpmyadmin
+#    restart: always
+#    depends_on:
+#      - mysql
+#    ports:
+#      - "${PMA_PORT}:80"
+#    environment:
+#      PMA_HOST: mysql # link to service name
+#      MYSQL_USERNAME: ${MYSQL_USER}
+#      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
 
   nginx:
     image: nginx:stable-alpine
@@ -44,27 +45,4 @@ services:
     volumes:
       - "./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro"
       - "./laravel:/var/www/html"
-
-  composer:
-    image: composer:${COMPOSER_VERSION}
-    container_name: composer
-    working_dir: /app
-    volumes:
-      - ./laravel:/app
-
-  node:
-    image: node:${NODE_VERSION}
-    container_name: node
-    working_dir: /app
-    volumes:
-      - ./laravel:/app
-
-  artisan:
-    build:
-      dockerfile: docker/php-fpm/Dockerfile
-      args:
-        PHP_VERSION: ${PHP_VERSION}
-    volumes:
-      - "./laravel:/var/www/html"
-    entrypoint: ["php", "/var/www/html/artisan"]
 
